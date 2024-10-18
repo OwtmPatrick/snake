@@ -1,28 +1,40 @@
-<script setup lang="ts">
+<script lang="ts">
 import { Snake } from '../game/Snake';
 import { Direction } from '../types';
 
-const snake = new Snake([
-  { x: 1, y: 2 },
-  { x: 1, y: 3 }
-]);
+export default {
+  data() {
+    const snake = new Snake([
+      { x: 2, y: 2 },
+      { x: 2, y: 3 }
+    ]);
 
-console.log(snake);
+    return {
+      snake
+    };
+  },
+
+  methods: {
+    moveSnake(): void {
+      this.snake.move(Direction.Up);
+    }
+  }
+};
 </script>
 
 <template>
   <div class="field">
     <ul class="snake">
       <li
-        v-for="dot in snake.dots"
+        v-for="(dot, index) in snake.dots"
         class="dot"
         :style="{ left: `${dot.x * 20}px`, bottom: `${dot.y * 20}px` }"
       >
-        {{ dot.x }}
+        {{ index }}
       </li>
     </ul>
 
-    <button @click="snake.move(Direction.Down)">move</button>
+    <button @click="moveSnake">move</button>
   </div>
 </template>
 

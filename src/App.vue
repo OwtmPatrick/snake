@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import Field from './components/Field.vue';
+import ErrorBoundary from './components/ErrorBoundary.vue';
 </script>
 
 <template>
-  <Field />
+  <ErrorBoundary>
+    <Field />
+  </ErrorBoundary>
 </template>
 
 <style scoped>
