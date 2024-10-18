@@ -6,7 +6,7 @@ export default {
       errorMessage: ''
     };
   },
-  errorCaptured(error, vm, info) {
+  errorCaptured(error, _, info) {
     // console.log('error:', (error as any).toString(), vm, info);
     this.error = error as any;
     this.errorMessage = info;
