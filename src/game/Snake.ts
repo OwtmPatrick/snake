@@ -17,29 +17,33 @@ export class Snake {
     switch (direction) {
       case Direction.Up: {
         return (
-          dotsWithoutHead.every((dot) => dot.y !== head.y + 1) &&
-          head.y + 1 < 10
+          dotsWithoutHead.every(
+            (dot) => dot.x !== head.x || dot.y !== head.y + 1
+          ) && head.y + 1 < 10
         );
       }
 
       case Direction.Right: {
         return (
-          dotsWithoutHead.every((dot) => dot.x !== head.x + 1) &&
-          head.x + 1 < 10
+          dotsWithoutHead.every(
+            (dot) => dot.x !== head.x + 1 || dot.y !== head.y
+          ) && head.x + 1 < 10
         );
       }
 
       case Direction.Down: {
         return (
-          dotsWithoutHead.every((dot) => dot.y !== head.y - 1) &&
-          head.y - 1 >= 0
+          dotsWithoutHead.every(
+            (dot) => dot.x !== head.x || dot.y !== head.y - 1
+          ) && head.y - 1 >= 0
         );
       }
 
       case Direction.Left: {
         return (
-          dotsWithoutHead.every((dot) => dot.x !== head.x - 1) &&
-          head.x - 1 >= 0
+          dotsWithoutHead.every(
+            (dot) => dot.x !== head.x - 1 || dot.y !== head.y
+          ) && head.x - 1 >= 0
         );
       }
 
