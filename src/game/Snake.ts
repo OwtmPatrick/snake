@@ -61,7 +61,7 @@ export class Snake {
       case Direction.Down:
         return { ...head, y: head.y - 1 };
       case Direction.Left:
-        return { ...head, y: head.x - 1 };
+        return { ...head, x: head.x - 1 };
       default:
         throw new Error('Unexpected direction');
     }
