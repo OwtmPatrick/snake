@@ -83,6 +83,13 @@ export default {
       >
         {{ index }}
       </li>
+      <li
+        class="dot dot_free"
+        :style="{
+          left: `${game.food.x * 20}px`,
+          bottom: `${game.food.y * 20}px`
+        }"
+      ></li>
     </ul>
 
     <p>Use arrows to manage snake</p>
@@ -124,6 +131,10 @@ export default {
   background: green;
   position: absolute;
   box-sizing: border-box;
+}
+
+.dot_free {
+  background: aqua;
 }
 
 .btns-wrapper {
