@@ -86,8 +86,8 @@ export default {
       <li
         class="dot dot_free"
         :style="{
-          left: `${game.food.x * 20}px`,
-          bottom: `${game.food.y * 20}px`
+          left: `${snake.food.x * 20}px`,
+          bottom: `${snake.food.y * 20}px`
         }"
       ></li>
     </ul>

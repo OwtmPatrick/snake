@@ -1,14 +1,17 @@
 import { Dot, Direction, SnakeStatus } from '../types';
+import { scale } from '../constants';
 
 export class Snake {
   dots: Dot[];
   direction: Direction;
   status: SnakeStatus;
+  food: Dot;
 
   constructor(dots: Dot[], direction: Direction) {
     this.dots = dots;
     this.direction = direction;
     this.status = SnakeStatus.Ok;
+    this.food = this.getFood();
   }
 
   public getDots(): Dot[] {
@@ -85,12 +88,40 @@ export class Snake {
       return this.dots[index - 1];
     });
 
-    this.dots = newDots;
+    const head = newDots[0];
+    const canEatFood = head.x === this.food.x && head.y === this.food.y;
+
+    if (canEatFood) {
+      this.dots = [...newDots, this.dots.pop()!];
+      this.food = this.getFood();
+    } else {
+      this.dots = newDots;
+    }
 
     return this.dots;
   }
 
   public changeDirection(direction: Direction) {
     this.direction = direction;
+  }
+
+  private getRandomFreeDotIndex(min = 0, max: number): number {
+    return Math.round(min + (max - min) * Math.random());
+  }
+
+  public getFood(): Dot {
+    const freeDots = [];
+
+    for (let i = 0; i < scale; i++) {
+      for (let j = 0; j < scale; j++) {
+        if (!this.dots.find((dot) => dot.x === i && dot.y === j)) {
+          freeDots.push({ x: i, y: j });
+        }
+      }
+    }
+
+    const dotIndex = this.getRandomFreeDotIndex(0, freeDots.length);
+
+    return freeDots[dotIndex];
   }
 }
