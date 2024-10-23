@@ -80,9 +80,7 @@ export default {
           bottom: `${dot.y * 20}px`,
           background: index === 0 ? 'red' : 'green'
         }"
-      >
-        {{ index }}
-      </li>
+      ></li>
       <li
         class="dot dot_free"
         :style="{
@@ -131,6 +129,7 @@ export default {
   background: green;
   position: absolute;
   box-sizing: border-box;
+  border: 1px solid;
 }
 
 .dot_free {
