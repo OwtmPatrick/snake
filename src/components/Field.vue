@@ -1,8 +1,9 @@
 <script lang="ts">
+import { useMagicKeys, whenever } from '@vueuse/core';
 import { Snake } from '../game/Snake';
+import GameOverNotification from './GameOverNotification.vue';
 import { Game } from '../game/Game';
 import { Direction, GameStatus } from '../types';
-import GameOverNotification from './GameOverNotification.vue';
 
 export default {
   setup() {
@@ -24,6 +25,24 @@ export default {
     );
 
     const game = new Game(snake);
+
+    const { arrowUp, arrowRight, arrowDown, arrowLeft } = useMagicKeys();
+
+    whenever(arrowUp, (v: boolean) => {
+      if (v) game.changeSnakeDirection(Direction.Up);
+    });
+
+    whenever(arrowRight, (v: boolean) => {
+      if (v) game.changeSnakeDirection(Direction.Right);
+    });
+
+    whenever(arrowDown, (v: boolean) => {
+      if (v) game.changeSnakeDirection(Direction.Down);
+    });
+
+    whenever(arrowLeft, (v: boolean) => {
+      if (v) game.changeSnakeDirection(Direction.Left);
+    });
 
     return {
       game,
@@ -51,7 +70,7 @@ export default {
 <template>
   <GameOverNotification :status="game.status" />
 
-  <div class="field" @keyup.enter="keyPress">
+  <div class="field">
     <ul class="snake">
       <li
         v-for="(dot, index) in snake.dots"
@@ -68,35 +87,11 @@ export default {
 
     <p>Use arrows to manage snake</p>
     <div class="btns-wrapper">
-      <button
-        :disabled="isChangindDirectionDisabled"
-        class="btn btn_up"
-        @click="changeDirection(0)"
-      >
-        →
-      </button>
+      <button disabled class="btn btn_up">→</button>
       <div class="btns-bottom-wrapper">
-        <button
-          :disabled="isChangindDirectionDisabled"
-          class="btn btn_left"
-          @click="changeDirection(3)"
-        >
-          →
-        </button>
-        <button
-          :disabled="isChangindDirectionDisabled"
-          class="btn btn_down"
-          @click="changeDirection(2)"
-        >
-          →
-        </button>
-        <button
-          :disabled="isChangindDirectionDisabled"
-          class="btn btn_right"
-          @click="changeDirection(1)"
-        >
-          →
-        </button>
+        <button disabled class="btn btn_left">→</button>
+        <button disabled class="btn btn_down">→</button>
+        <button disabled class="btn btn_right">→</button>
       </div>
     </div>
 
