@@ -1,10 +1,14 @@
-import { Dot, Direction } from '../types';
+import { Dot, Direction, SnakeStatus } from '../types';
 
 export class Snake {
   dots: Dot[];
+  direction: Direction;
+  status: SnakeStatus;
 
-  constructor(dots: Dot[]) {
+  constructor(dots: Dot[], direction: Direction) {
     this.dots = dots;
+    this.direction = direction;
+    this.status = SnakeStatus.Ok;
   }
 
   public getDots(): Dot[] {
@@ -54,6 +58,7 @@ export class Snake {
 
   private geNextHeadDot(head: Dot, direction: Direction): Dot {
     if (!this.canMove(head, direction)) {
+      this.status = SnakeStatus.Error;
       throw new Error('Game over');
     }
 
@@ -71,10 +76,10 @@ export class Snake {
     }
   }
 
-  public move(direction: Direction): Dot[] {
+  public move(): Dot[] {
     const newDots = this.dots.map((dot, index) => {
       if (index === 0) {
-        return this.geNextHeadDot(dot, direction);
+        return this.geNextHeadDot(dot, this.direction);
       }
 
       return this.dots[index - 1];
@@ -83,5 +88,9 @@ export class Snake {
     this.dots = newDots;
 
     return this.dots;
+  }
+
+  public changeDirection(direction: Direction) {
+    this.direction = direction;
   }
 }

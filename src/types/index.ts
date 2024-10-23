@@ -9,3 +9,14 @@ export enum Direction {
   Down,
   Left
 }
+
+export enum SnakeStatus {
+  Ok,
+  Error
+}
+
+export enum GameStatus {
+  Idle,
+  Started,
+  Ended
+}
