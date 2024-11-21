@@ -5,6 +5,13 @@ import GameOverNotification from './GameOverNotification.vue';
 import { Game } from '../game/Game';
 import { Direction, GameStatus } from '../types';
 
+const initialSnake = [
+  { x: 2, y: 2 },
+  { x: 2, y: 3 },
+  { x: 2, y: 4 },
+  { x: 2, y: 5 }
+];
+
 export default {
   setup() {
     return { GameStatus };
@@ -14,19 +21,9 @@ export default {
   },
 
   data() {
-    const snake = new Snake(
-      [
-        { x: 2, y: 2 },
-        { x: 2, y: 3 },
-        { x: 2, y: 4 },
-        { x: 2, y: 5 }
-      ],
-      Direction.Right
-    );
+    const snake = new Snake(initialSnake, Direction.Right);
 
     const game = new Game(snake);
-
-    console.log('game: ', game);
 
     const { arrowUp, arrowRight, arrowDown, arrowLeft } = useMagicKeys();
 
