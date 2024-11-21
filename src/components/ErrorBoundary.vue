@@ -27,5 +27,13 @@ export default {
     <h3>Game over</h3>
     <button @click="restartGame">Restart</button>
   </div>
-  <div v-else><slot></slot></div>
+  <div v-else class="container"><slot></slot></div>
 </template>
+
+<style scoped>
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+</style>

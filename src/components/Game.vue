@@ -26,6 +26,8 @@ export default {
 
     const game = new Game(snake);
 
+    console.log('game: ', game);
+
     const { arrowUp, arrowRight, arrowDown, arrowLeft } = useMagicKeys();
 
     whenever(arrowUp, (v: boolean) => {
@@ -68,9 +70,13 @@ export default {
 </script>
 
 <template>
-  <GameOverNotification :status="game.status" />
+  <h1 class="title">Use arrows to manage snake</h1>
 
-  <div class="field">
+  <div v-if="game.status === GameStatus.Ended" class="field field_game-over">
+    <GameOverNotification :status="game.status" />
+  </div>
+
+  <div v-if="game.status !== GameStatus.Ended" class="field">
     <ul class="snake">
       <li
         v-for="(dot, index) in snake.dots"
@@ -90,25 +96,27 @@ export default {
       ></li>
     </ul>
 
-    <p>Use arrows to manage snake</p>
-    <div class="btns-wrapper">
-      <button disabled class="btn btn_up">→</button>
-      <div class="btns-bottom-wrapper">
-        <button disabled class="btn btn_left">→</button>
-        <button disabled class="btn btn_down">→</button>
-        <button disabled class="btn btn_right">→</button>
-      </div>
-    </div>
-
-    <div><button @click="startGame()">start game</button></div>
+    <button @click="startGame()">start game</button>
   </div>
 </template>
 
 <style scoped>
+.title {
+  font-size: 24px;
+  margin-bottom: 30px;
+}
+
 .field {
   width: 200px;
   height: 200px;
   border: 1px dashed green;
+}
+
+.field_game-over {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 .game-state {
@@ -117,6 +125,7 @@ export default {
 
 .snake {
   margin: 0;
+  margin-bottom: 20px;
   padding: 0;
   list-style: none;
   height: 100%;
@@ -134,31 +143,5 @@ export default {
 
 .dot_free {
   background: aqua;
-}
-
-.btns-wrapper {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-
-.btns-bottom-wrapper {
-  display: flex;
-  gap: 10px;
-  margin: 20px;
-}
-
-.btn_up {
-  transform: rotate(-90deg);
-}
-
-.btn_down {
-  transform: rotate(90deg);
-}
-
-.btn_left {
-  transform: rotate(180deg);
 }
 </style>
